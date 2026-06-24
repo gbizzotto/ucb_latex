@@ -1,0 +1,129 @@
+\ProvidesPackage{ucb/ucb}
+
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\contentsname}{Sumário}
+
+%\renewcommand{\subsection}{\raggedright}
+\let\ucbsubsection\subsection
+\renewcommand{\subsection}[1]{
+	\raggedright
+	\ucbsubsection{#1}
+}
+
+\fancyhead{} % clear all head fields
+\fancyfoot{} % clear all footer fields
+
+%\graphicspath{ {ucb/images} }
+
+\newcommand{\sectiontitle}[1]{
+    \begin{center}
+    \section{ #1 }
+    \end{center}
+}
+
+\newcommand{\eq}[1]{
+
+    \vspace{.2cm}
+    \hspace{.3cm}
+    {\large #1 }
+}
+\newcommand{\eqnum}[2]{
+
+    \vspace{.2cm}
+    (#1)
+    \hspace{1cm}
+    {\Large #2 }
+}
+
+\newcommand{\result}[1]{
+    \\
+    \centering
+    \vspace{.2cm}
+    \fbox{
+	    {\huge #1}
+	    \newline
+    }
+    \\
+    \raggedright
+    \vspace{.5cm}
+}
+
+
+\newcommand{\sumario}
+{
+	\tableofcontents
+	\pagebreak
+	\renewcommand{\footrulewidth}{0.4pt}
+	\fancyfoot[R]{\thepage}
+}
+
+% Curso
+% Título
+% Nome completo do autor
+% Ano de criação (e.g. 2026)
+\newcommand{\capa}[5]{
+	\newgeometry{left=20mm, right=20mm, top=20mm, bottom=8mm}
+
+	%\begin{titlepage}
+    % Add background image only to this page
+    \AddToShipoutPictureBG*{%
+        \AtPageLowerLeft{%
+            \includegraphics[width=\paperwidth,height=\paperheight]{ucb/images/background.png}%
+        }%
+    }
+    
+    \centering
+    \topskip0pt
+
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    {\huge Pró-Reitoria Acadêmica}
+	    \vspace{0.5cm}
+	    \\
+	    {\huge #1}
+	    \\
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    {\Huge Hidraulica}
+	    \vspace{0.5cm}
+	    \\
+	    {\Huge #2}
+	    \\
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    \vspace*{\fill}
+	    \raggedright
+	    {\Huge Autor: #3 (#4)}
+	    \\
+	    \vspace*{\fill}
+	    \centering 
+	    \textcolor{white}{\Large \bf Brasília - DF}
+	    \vspace{0.2cm}
+	    \\
+	    \textcolor{white}{\Large \bf #5}
+	    
+	%\end{titlepage}
+
+	\restoregeometry
+}
+
+\newcommand{\bibliografia}{
+	\centering
+	\pagebreak
+	\section*{Referências}
+	\addcontentsline{toc}{section}{Referências}
+	\printbibliography[heading=none]
+}
