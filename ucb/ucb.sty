@@ -1,11 +1,15 @@
 \ProvidesPackage{ucb/ucb}
 
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % typeface: Time
+
 \usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{eso-pic}
 \usepackage{fancyhdr}
 \usepackage[hidelinks,colorlinks=false,linkcolor=white,citecolor=white]{hyperref}
+\usepackage[dvipsnames]{xcolor}
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.0pt}
@@ -82,43 +86,48 @@
             \includegraphics[width=\paperwidth,height=\paperheight]{ucb/images/background.png}%
         }%
     }
-    
+
+
     \centering
     \topskip0pt
 
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    {\huge Pró-Reitoria Acadêmica}
-	    \vspace{0.5cm}
-	    \\
-	    {\huge #1}
-	    \\
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    {\Huge #2}
-	    \vspace{0.5cm}
-	    \\
-	    {\Huge #3}
-	    \\
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    \vspace*{\fill}
-	    \raggedright
-	    {\Huge Autor: #4 (#5)}
-	    \\
-	    \vspace*{\fill}
-	    \centering 
-	    \textcolor{white}{\Large \bf Brasília - DF}
-	    \vspace{0.2cm}
-	    \\
-	    \textcolor{white}{\Large \bf #6}
-	    
+    \fontsize{18}{20}\selectfont
+    {
+    	\bf{
+		    \textcolor{Blue}{
+		    {
+			    \vspace*{\fill}
+			    \\
+	    		Pró-Reitoria Acadêmica
+	    		\\
+			    #1
+			    \\
+			    \vspace*{\fill}
+			    \vspace*{\fill}
+			    #2
+			    \\
+			    #3
+			    \\
+			    \vspace*{\fill}
+			    \vspace*{\fill}
+			    \raggedleft
+			    Autor: #4 (#5)
+			    \\
+			    \vspace*{\fill}
+			    \vspace*{\fill}
+			    \vspace*{\fill}
+			    \centering 
+			    \textcolor{white}{\Large \bf Brasília - DF}
+			    \vspace{0.2cm}
+			    \\
+			}}
+		}
+	    \textcolor{white}{#6}
+	}   
 	%\end{titlepage}
 
 	\restoregeometry
+	\fontsize{12}{14}\selectfont{}
 }
 
 \newcommand{\bibliografia}{
