@@ -14,26 +14,20 @@
 \usepackage{setspace}
 
 \justifying
+% line spacing
 \onehalfspacing
+% paragraph indentation
+\setlength{\parindent}{1.25cm}
 
-\setlength{\parindent}{1.25cm} % Sets indent
-
+% footer with page number on the right
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.0pt}
 \renewcommand{\footrulewidth}{0.0pt}
-
-\renewcommand{\figurename}{Fig.}
-\renewcommand{\contentsname}{Sumário}
-
-\let\ucbsubsection\subsection
-\renewcommand{\subsection}[1]{
-	\begin{raggedright}
-	\ucbsubsection{#1}
-	\end{raggedright}
-}
-
 \fancyhead{} % clear all head fields
 \fancyfoot{} % clear all footer fields
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\contentsname}{SUMÁRIO}
 
 % artbitrary placement of text
 \newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
@@ -42,12 +36,6 @@
     \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][c]{#3}}}%
   }%
 }%
-
-\newcommand{\sectiontitle}[1]{
-    \begin{center}
-    \section{ #1 }
-    \end{center}
-}
 
 % 1 equation
 % 2 addendum on same line (e.g. \cite)
@@ -82,14 +70,17 @@
 }
 
 
+\newcommand{\iniciotexto}
+{	
+	\fancyhead[R]{\thepage}
+}
+
 \newcommand{\sumario}
 {
 	\begin{center}
 	\tableofcontents
 	\end{center}
 	\pagebreak
-	\renewcommand{\footrulewidth}{0.4pt}
-	\fancyfoot[R]{\thepage}
 }
 
 % 1 - Curso
@@ -132,13 +123,17 @@
 	% have _something_ on this page so that newpage actually goes to next page
 	\mbox{}
 	\newpage
-
 }
 
 \newcommand{\bibliografia}{
 	\pagebreak
-	\centering
-	\section*{Referências}
-	\addcontentsline{toc}{section}{Referências}
+	\begin{center}
+	\section*{REFERÊNCIAS}
+	\end{center}
+	\addcontentsline{toc}{section}{REFERÊNCIAS}
+	\begin{spacing}{1}
+	\begin{raggedright}
 	\printbibliography[heading=none]
+	\end{raggedright}
+	\end{spacing}
 }
