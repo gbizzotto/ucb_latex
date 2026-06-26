@@ -3,13 +3,20 @@
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx} % typeface: Time
 
-\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage[left=30mm, right=20mm, top=30mm, bottom=20mm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{eso-pic}
 \usepackage{fancyhdr}
 \usepackage[hidelinks,colorlinks=false,linkcolor=white,citecolor=white]{hyperref}
 \usepackage[dvipsnames]{xcolor}
+\usepackage{ragged2e}
+\usepackage{setspace}
+
+\justifying
+\onehalfspacing
+
+\setlength{\parindent}{1.25cm} % Sets indent
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.0pt}
@@ -18,17 +25,23 @@
 \renewcommand{\figurename}{Fig.}
 \renewcommand{\contentsname}{Sumário}
 
-%\renewcommand{\subsection}{\raggedright}
 \let\ucbsubsection\subsection
 \renewcommand{\subsection}[1]{
-	\raggedright
+	\begin{raggedright}
 	\ucbsubsection{#1}
+	\end{raggedright}
 }
 
 \fancyhead{} % clear all head fields
 \fancyfoot{} % clear all footer fields
 
-%\graphicspath{ {ucb/images} }
+% artbitrary placement of text
+\newcommand{\placetextbox}[3]{% \placetextbox{<horizontal pos>}{<vertical pos>}{<stuff>}
+  \setbox0=\vbox{#3}% Put <stuff> in a box
+  \AddToShipoutPictureFG*{% Add <stuff> to current page foreground
+    \put(\LenToUnit{#1\paperwidth},\LenToUnit{#2\paperheight}){\vtop{{\null}\makebox[0pt][c]{#3}}}%
+  }%
+}%
 
 \newcommand{\sectiontitle}[1]{
     \begin{center}
@@ -36,103 +49,95 @@
     \end{center}
 }
 
-\newcommand{\eq}[1]{
-
-    \vspace{.2cm}
+% 1 equation
+% 2 addendum on same line (e.g. \cite)
+\newcommand{\eq}[2]{
+	\begin{spacing}{1.5}
+	\begin{raggedright}
     \hspace{.3cm}
-    {\large #1 }
+    {\large #1\hspace{.3cm}#2}
+	\end{raggedright}
+	\end{spacing}
 }
-\newcommand{\eqnum}[2]{
-
-    \vspace{.2cm}
-    (#1)
-    \hspace{1cm}
-    {\Large #2 }
+% 1 equation number
+% 2 equation
+% 3 addendum on same line (e.g. \cite)
+\newcommand{\eqnum}[3]{
+	\begin{spacing}{1.5}
+	\begin{raggedright}
+    {\Large (#1)\hspace{1cm}#2\hspace{1cm}#3}
+	\end{raggedright}
+	\end{spacing}
 }
 
 \newcommand{\result}[1]{
-    \\
-    \centering
-    \vspace{.2cm}
+	\begin{spacing}{2}
+    \begin{centering}
     \fbox{
 	    {\huge #1}
-	    \newline
-    }
-    \\
-    \raggedright
-    \vspace{.5cm}
+	}
+    \par
+    \end{centering}
+	\end{spacing}
 }
 
 
 \newcommand{\sumario}
 {
+	\begin{center}
 	\tableofcontents
+	\end{center}
 	\pagebreak
 	\renewcommand{\footrulewidth}{0.4pt}
 	\fancyfoot[R]{\thepage}
 }
 
-% Curso
-% Título
-% Nome completo do autor
-% Ano de criação (e.g. 2026)
-\newcommand{\capa}[6]{
-	\newgeometry{left=20mm, right=20mm, top=20mm, bottom=8mm}
-
-	%\begin{titlepage}
+% 1 - Curso
+% 2 - Matéria
+% 3 - Título
+% 4 - Nome do autor
+% 5 - Ano de criação (e.g. 2026)
+\newcommand{\capa}[5]{
     % Add background image only to this page
     \AddToShipoutPictureBG*{%
         \AtPageLowerLeft{%
             \includegraphics[width=\paperwidth,height=\paperheight]{ucb/images/background.png}%
         }%
-    }
+    }    
+ 	\placetextbox{.5}{.82}{
+	 	\begin{minipage}{0.8\textwidth}
+	 	\centering
+		\fontsize{18}{20}\selectfont{\bf{\textcolor{Blue}{{Pró-Reitoria Acadêmica}}}}
+		
+		\fontsize{18}{20}\selectfont{\bf{\textcolor{Blue}{{#1}}}}
+		
+		\fontsize{18}{20}\selectfont{\bf{\textcolor{Blue}{{#2}}}}
+		\end{minipage}
+ 	}
+ 	\placetextbox{.5}{.55}{\fontsize{18}{20}\selectfont{\bf{\textcolor{Blue}{{\uppercase{#3}}}}}}
+ 	\placetextbox{.5}{.35}{
+	 	\begin{minipage}{1.1\textwidth}
+		 	\raggedleft
+	 		\fontsize{18}{20}\selectfont{\bf{\textcolor{Blue}{{\raggedleft #4}}}}
+	 	\end{minipage}
+ 	}
+ 	\placetextbox{.5}{.07}{
+	 	\begin{minipage}{0.8\textwidth}
+	 	\centering
+		\fontsize{18}{20}\selectfont{\bf{\textcolor{White}{{Brasília - DF}}}}
+		
+		\fontsize{18}{20}\selectfont{\bf{\textcolor{White}{{#5}}}}
+		\end{minipage}
+	}
+	% have _something_ on this page so that newpage actually goes to next page
+	\mbox{}
+	\newpage
 
-
-    \centering
-    \topskip0pt
-
-    \fontsize{18}{20}\selectfont
-    {
-    	\bf{
-		    \textcolor{Blue}{
-		    {
-			    \vspace*{\fill}
-			    \\
-	    		Pró-Reitoria Acadêmica
-	    		\\
-			    #1
-			    \\
-			    \vspace*{\fill}
-			    \vspace*{\fill}
-			    #2
-			    \\
-			    #3
-			    \\
-			    \vspace*{\fill}
-			    \vspace*{\fill}
-			    \raggedleft
-			    Autor: #4 (#5)
-			    \\
-			    \vspace*{\fill}
-			    \vspace*{\fill}
-			    \vspace*{\fill}
-			    \centering 
-			    \textcolor{white}{\Large \bf Brasília - DF}
-			    \vspace{0.2cm}
-			    \\
-			}}
-		}
-	    \textcolor{white}{#6}
-	}   
-	%\end{titlepage}
-
-	\restoregeometry
-	\fontsize{12}{14}\selectfont{}
 }
 
 \newcommand{\bibliografia}{
-	\centering
 	\pagebreak
+	\centering
 	\section*{Referências}
 	\addcontentsline{toc}{section}{Referências}
 	\printbibliography[heading=none]
